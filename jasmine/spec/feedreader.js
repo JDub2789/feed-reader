@@ -24,7 +24,7 @@ $(function() {
         expect(feed.name).toBeDefined();
         expect(feed.name.length).not.toBe(0);
         // }
-      })
+      });
     });
   });
 
