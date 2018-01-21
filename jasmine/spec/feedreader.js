@@ -20,10 +20,8 @@ $(function() {
      */
     it('have names', function() {
       allFeeds.forEach(function(feed) {
-        // for (var i = 0; i < allFeeds.length; i++) {
         expect(feed.name).toBeDefined();
         expect(feed.name.length).not.toBe(0);
-        // }
       });
     });
   });
@@ -66,18 +64,21 @@ $(function() {
   });
 
   describe('New Feed Selection', function() {
-    const entryArticle = document.getElementsByClassName('entry');
+    let firstFeedContents;
     beforeEach(function(done) {
-      loadFeed(1, function() {
-        done();
-      });
+      loadFeed(0, function() {
+        firstFeedContents = document.querySelector('.feed').innerHTML;
+        loadFeed(1, function() {
+          done();
+        });
     });
+  });
 
     /* Ensures when a new feed is loaded by the loadFeed function that the content actually changes.
      */
     it('should have new content', function(done) {
-      for (var i = 0; i < allFeeds.length; i++)
-        expect(entryArticle[i].innerText).not.toEqual(entryArticle[i + 1].innerText);
+      const secondFeedContents = document.querySelector('.feed').innerHTML;
+      expect(firstFeedContents).not.toBe(secondFeedContents);
       done();
     });
   });
